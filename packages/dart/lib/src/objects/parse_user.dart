@@ -200,11 +200,11 @@ class ParseUser extends ParseObject implements ParseCloneable {
         keyVarPassword: password
       };
       final String installationId = await _getInstallationId();
-      final Uri url = getSanitisedUri(_client, '$keyEndPointLogin',
-          queryParams: queryParams);
+      final Uri url = getSanitisedUri(_client, '$keyEndPointLogin');
       _saveChanges();
-      final Response<String> response = await _client.get<String>(
+      final Response<String> response = await _client.post<String>(
         url.toString(),
+		data: queryParams,
         options: Options(headers: <String, String>{
           keyHeaderRevocableSession: '1',
           if (installationId != null) keyHeaderInstallationId: installationId,
